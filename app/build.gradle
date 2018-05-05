@@ -41,7 +41,6 @@ android {
         mock {
             dimension "default"
             applicationIdSuffix = ".mock"
-            minSdkVersion 18
         }
         prod {
             dimension "default"
