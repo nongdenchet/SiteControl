@@ -24,7 +24,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':core')
+    implementation project(path: ':core')
+    implementation 'com.jakewharton.timber:timber:4.7.0'
 
     // Support
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
@@ -44,10 +45,6 @@ dependencies {
     implementation 'com.google.dagger:dagger-android-support:2.15'
     kapt 'com.google.dagger:dagger-compiler:2.15'
     kapt 'com.google.dagger:dagger-android-processor:2.15'
-
-    // Butter Knife
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    kapt 'com.jakewharton:butterknife-compiler:8.8.1'
 
     // Testing
     testImplementation 'junit:junit:4.12'

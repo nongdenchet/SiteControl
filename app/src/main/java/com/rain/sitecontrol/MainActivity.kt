@@ -3,7 +3,7 @@ package com.rain.sitecontrol
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import com.rain.auth.SetupNavigator
+import com.rain.auth.ui.SetupNavigator
 
 class MainActivity : AppCompatActivity() {
     private lateinit var setupNavigator: SetupNavigator

@@ -1,4 +1,4 @@
-package com.rain.core
+package com.rain.core.utils
 
 import android.content.Context
 import android.content.Intent
