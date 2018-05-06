@@ -1,4 +1,4 @@
-package com.rain.auth.ui
+package com.rain.auth.ui.setup
 
 import android.content.Context
 import android.content.Intent

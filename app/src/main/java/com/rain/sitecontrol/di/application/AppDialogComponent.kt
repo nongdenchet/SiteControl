@@ -2,6 +2,7 @@ package com.rain.sitecontrol.di.application
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.rain.auth.ui.auth.di.AuthDialogComponentProvider
 import com.rain.sitecontrol.SiteControlApp
 import com.rain.sitecontrol.di.BindingModule
 import dagger.BindsInstance
@@ -11,7 +12,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [(AndroidInjectionModule::class), (BindingModule::class), (AppModule::class)])
-interface AppComponent {
+interface AppComponent : AuthDialogComponentProvider {
 
     @Component.Builder
     interface Builder {

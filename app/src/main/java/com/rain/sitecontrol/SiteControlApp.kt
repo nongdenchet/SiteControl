@@ -3,16 +3,18 @@ package com.rain.sitecontrol
 import android.app.Activity
 import android.app.Application
 import android.app.Service
+import com.rain.auth.ui.auth.di.AuthDialogComponentProvider
+import com.rain.auth.ui.auth.di.AuthDialogModule
 import com.rain.sitecontrol.di.application.AppComponent
+import com.rain.sitecontrol.di.application.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import dagger.android.HasServiceInjector
-import com.rain.sitecontrol.di.application.DaggerAppComponent
 import javax.inject.Inject
 
-open class SiteControlApp : Application(), HasActivityInjector, HasServiceInjector {
-    lateinit var component: AppComponent
+open class SiteControlApp : Application(), HasActivityInjector, HasServiceInjector, AuthDialogComponentProvider {
+    private lateinit var component: AppComponent
 
     @Inject
     lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Activity>
@@ -26,6 +28,8 @@ open class SiteControlApp : Application(), HasActivityInjector, HasServiceInject
     override fun serviceInjector(): AndroidInjector<Service> {
         return dispatchingServiceInjector
     }
+
+    override fun plus(authDialogModule: AuthDialogModule) = component.plus(authDialogModule)
 
     override fun onCreate() {
         super.onCreate()

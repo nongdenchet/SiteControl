@@ -1,11 +1,11 @@
-package com.rain.auth.ui
+package com.rain.auth.ui.setup
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import com.rain.auth.R
-import com.rain.auth.ui.reducer.SetupState
+import com.rain.auth.ui.setup.reducer.SetupState
 import com.rain.core.utils.EMPTY_STRING
 import com.rain.core.utils.getClicks
 import com.rain.core.utils.getStreamText
@@ -32,6 +32,7 @@ class SetupActivity : AppCompatActivity() {
     private fun bindViewModel() {
         val output = viewModel.bind(SetupViewModel.Input(
                 getStreamText(pinView),
+                getStreamText(pinViewConfirm),
                 getClicks(btnBack)
         ))
 
@@ -39,28 +40,31 @@ class SetupActivity : AppCompatActivity() {
                 output.canGoBack.subscribeMain({ bindCanGoBack(it) }, Timber::e),
                 output.title.subscribeMain({ bindTitle(it) }, Timber::e),
                 output.error.subscribeMain({ bindError(it) }, Timber::e),
-                output.password.subscribeMain({ bindPassword(it) }, Timber::e),
                 output.step.subscribeMain({ bindStep(it) }, Timber::e)
         )
     }
 
     private fun bindStep(step: SetupState.Step) {
         when (step) {
-            SetupState.Step.Confirmation -> pinView.setText(EMPTY_STRING)
+            SetupState.Step.Confirmation -> {
+                pinViewConfirm.setText(EMPTY_STRING)
+                pinViewConfirm.visibility = View.VISIBLE
+                pinViewConfirm.requestFocus()
+                pinView.visibility = View.GONE
+            }
+            SetupState.Step.Init -> {
+                pinView.setText(EMPTY_STRING)
+                pinView.visibility = View.VISIBLE
+                pinView.requestFocus()
+                pinViewConfirm.visibility = View.GONE
+            }
             SetupState.Step.Success -> finish()
-            else -> {}
-        }
-    }
-
-    private fun bindPassword(value: String) {
-        if (pinView.text.toString() != value) {
-            pinView.setText(value)
         }
     }
 
     private fun bindError(error: String) {
         if (error.isNotBlank()) {
-            pinView.setText(EMPTY_STRING)
+            pinViewConfirm.setText(EMPTY_STRING)
             Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
         }
     }
@@ -72,8 +76,8 @@ class SetupActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         disposables.dispose()
         viewModel.unbind()
+        super.onDestroy()
     }
 }

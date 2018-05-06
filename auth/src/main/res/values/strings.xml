@@ -3,4 +3,6 @@
     <string name="setup_pin">Let\'s setup your pin first</string>
     <string name="confirm_pin">Confirm your pin</string>
     <string name="confirm_not_match">confirmation not match</string>
+    <string name="enter_pin_to_continue">Enter pin to continue</string>
+    <string name="invalid_password">invalid password</string>
 </resources>

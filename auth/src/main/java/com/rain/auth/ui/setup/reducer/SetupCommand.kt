@@ -1,4 +1,4 @@
-package com.rain.auth.ui.reducer
+package com.rain.auth.ui.setup.reducer
 
 import com.rain.core.viewmodel.Command
 

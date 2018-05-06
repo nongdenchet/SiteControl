@@ -1,4 +1,4 @@
-package com.rain.auth.ui.reducer
+package com.rain.auth.ui.setup.reducer
 
 import android.support.annotation.StringRes
 import com.rain.auth.R

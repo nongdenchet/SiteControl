@@ -1,15 +1,14 @@
-package com.rain.auth.ui.di
+package com.rain.auth.ui.setup.di
 
-import com.rain.auth.data.AuthModule
 import com.rain.auth.data.AuthRepo
-import com.rain.auth.ui.SetupViewModel
-import com.rain.auth.ui.interactor.SetupInteractor
-import com.rain.auth.ui.reducer.SetupReducer
+import com.rain.auth.ui.setup.SetupViewModel
+import com.rain.auth.ui.setup.interactor.SetupInteractor
+import com.rain.auth.ui.setup.reducer.SetupReducer
 import com.rain.core.support.ResourceProvider
 import dagger.Module
 import dagger.Provides
 
-@Module(includes = [(AuthModule::class)])
+@Module
 class SetupModule {
 
     @SetupScope

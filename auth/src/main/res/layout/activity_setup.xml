@@ -21,27 +21,54 @@
         android:layout_centerHorizontal="true"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/size_large"
-        android:layout_above="@+id/pinView"
+        android:layout_above="@+id/container"
         tools:text="Please enter your pin" />
 
-    <com.chaos.view.PinView
-        android:id="@+id/pinView"
-        style="@style/PinWidget.PinView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_centerInParent="true"
-        android:cursorVisible="true"
-        android:inputType="numberPassword"
-        android:padding="@dimen/size_normal"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/size_normal"
-        app:cursorWidth="2dp"
-        app:itemCount="6"
-        app:itemHeight="52dp"
-        app:itemRadius="4dp"
-        app:itemWidth="44dp"
-        app:lineColor="@color/colorWhite"
-        app:lineWidth="2dp"
-        app:viewType="rectangle"
-        tools:text="123456" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.chaos.view.PinView
+            android:id="@+id/pinView"
+            style="@style/PinWidget.PinView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:cursorVisible="true"
+            android:inputType="numberPassword"
+            android:padding="@dimen/size_normal"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/size_normal"
+            app:cursorWidth="2dp"
+            app:itemCount="6"
+            app:itemHeight="52dp"
+            app:itemRadius="4dp"
+            app:itemWidth="44dp"
+            app:lineColor="@color/colorWhite"
+            app:lineWidth="2dp"
+            app:viewType="rectangle"
+            tools:text="123456" />
+
+        <com.chaos.view.PinView
+            android:visibility="gone"
+            android:id="@+id/pinViewConfirm"
+            style="@style/PinWidget.PinView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:cursorVisible="true"
+            android:inputType="numberPassword"
+            android:padding="@dimen/size_normal"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/size_normal"
+            app:cursorWidth="2dp"
+            app:itemCount="6"
+            app:itemHeight="52dp"
+            app:itemRadius="4dp"
+            app:itemWidth="44dp"
+            app:lineColor="@color/colorWhite"
+            app:lineWidth="2dp"
+            app:viewType="rectangle"
+            tools:text="123456" />
+    </FrameLayout>
 </RelativeLayout>

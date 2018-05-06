@@ -7,12 +7,14 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.view.inputmethod.InputMethodManager
 import com.google.gson.Gson
+import com.rain.auth.data.AuthManager
+import com.rain.auth.data.AuthModule
 import com.rain.core.support.ResourceProvider
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [(AuthModule::class), (NavigatorModule::class)])
 class AppModule {
 
     @Provides
