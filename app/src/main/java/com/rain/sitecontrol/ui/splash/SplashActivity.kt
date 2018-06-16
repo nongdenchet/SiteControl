@@ -1,23 +1,18 @@
 package com.rain.sitecontrol.ui.splash
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.rain.auth.data.AuthManager
 import com.rain.auth.ui.setup.SetupActivity
-import com.rain.onboarding.permission.PermissionManager
 import com.rain.onboarding.ui.OnboardingActivity
 import com.rain.sitecontrol.ui.main.MainActivity
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity(), SplashView {
 
     @Inject
-    lateinit var permissionManager: PermissionManager
-    @Inject
-    lateinit var authManager: AuthManager
+    lateinit var splashPresenter: SplashPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -26,39 +21,24 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (permissionManager.hasAllPermissions()) {
-            if (!authManager.hasSetup()) {
-                toSetup()
-            } else {
-                toSetting()
-            }
-        } else {
-            toOnboarding()
-        }
+        splashPresenter.checkPermissions()
     }
 
-    private fun toSetup() {
+    override fun toSetup() {
         startActivityForResult(Intent(this, SetupActivity::class.java), SetupActivity.REQUEST)
     }
 
-    private fun toOnboarding() {
+    override fun toOnboarding() {
         startActivityForResult(Intent(this, OnboardingActivity::class.java), OnboardingActivity.REQUEST)
     }
 
-    private fun toSetting() {
+    override fun toSetting() {
         startActivity(Intent(this, MainActivity::class.java))
-        finish()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == OnboardingActivity.REQUEST && resultCode == Activity.RESULT_CANCELED) {
-            finish()
-            return
-        }
+    override fun close() = finish()
 
-        if (requestCode == SetupActivity.REQUEST && resultCode == Activity.RESULT_CANCELED) {
-            finish()
-            return
-        }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        splashPresenter.handleResult(requestCode, resultCode)
     }
 }

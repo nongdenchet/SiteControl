@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 
-class SiteControlAccessibilityService : AccessibilityService() {
+class SiteControlService : AccessibilityService() {
     private val settingPackage = "com.android.settings"
     private val urlBarId = "com.android.chrome:id/url_bar"
     private val forceStopId = "com.android.settings:id/right_button"
