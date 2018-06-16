@@ -1,5 +1,6 @@
 package com.rain.sitecontrol.ui.splash
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -37,15 +38,27 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun toSetup() {
-        startActivity(Intent(this, SetupActivity::class.java))
+        startActivityForResult(Intent(this, SetupActivity::class.java), SetupActivity.REQUEST)
     }
 
     private fun toOnboarding() {
-        startActivity(Intent(this, OnboardingActivity::class.java))
+        startActivityForResult(Intent(this, OnboardingActivity::class.java), OnboardingActivity.REQUEST)
     }
 
     private fun toSetting() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == OnboardingActivity.REQUEST && resultCode == Activity.RESULT_CANCELED) {
+            finish()
+            return
+        }
+
+        if (requestCode == SetupActivity.REQUEST && resultCode == Activity.RESULT_CANCELED) {
+            finish()
+            return
+        }
     }
 }

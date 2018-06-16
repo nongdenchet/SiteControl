@@ -1,5 +1,6 @@
 package com.rain.auth.ui.setup
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -18,6 +19,10 @@ import javax.inject.Inject
 
 class SetupActivity : AppCompatActivity() {
     private val disposables = CompositeDisposable()
+
+    companion object {
+        const val REQUEST = 1002
+    }
 
     @Inject
     lateinit var viewModel: SetupViewModel
@@ -58,8 +63,16 @@ class SetupActivity : AppCompatActivity() {
                 pinView.requestFocus()
                 pinViewConfirm.visibility = View.GONE
             }
-            SetupState.Step.Success -> finish()
+            SetupState.Step.Success -> {
+                setResult(Activity.RESULT_OK)
+                finish()
+            }
         }
+    }
+
+    override fun onBackPressed() {
+        setResult(Activity.RESULT_CANCELED)
+        finish()
     }
 
     private fun bindError(error: String) {

@@ -2,10 +2,23 @@ package com.rain.onboarding.ui
 
 import com.rain.onboarding.R
 import com.rain.onboarding.permission.PermissionAction
+import com.rain.onboarding.permission.PermissionManager
 
-class OnboardingViewModelMapper {
+class OnboardingPresenter(private val permissionManager: PermissionManager,
+                          private val onboardingView: OnboardingView) {
 
-    fun toItem(action: PermissionAction): OnboardingViewModel {
+    fun checkPermission() {
+        val permissions = permissionManager.checkPermissions()
+                .map { toViewModel(it) }
+
+        if (permissions.isEmpty()) {
+            onboardingView.close()
+        } else {
+            onboardingView.display(permissions[0])
+        }
+    }
+
+    private fun toViewModel(action: PermissionAction): OnboardingViewModel {
         return when (action) {
             is PermissionAction.Accessibility -> OnboardingViewModel(
                     R.drawable.ic_accessibility,
