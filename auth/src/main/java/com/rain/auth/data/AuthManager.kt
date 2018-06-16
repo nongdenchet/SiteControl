@@ -10,6 +10,8 @@ class AuthManager(private val authRepo: AuthRepo, private val context: Context) 
 
     class NotSetupPassword : Throwable()
 
+    fun hasSetup() = authRepo.hasSetup()
+
     fun <T> requireAuthComplete(value: T): Maybe<T> {
         return requireAuth(value)
                 .onErrorComplete {

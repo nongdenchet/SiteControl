@@ -6,18 +6,11 @@
     tools:context=".ui.main.MainActivity">
 
     <TextView
-        android:id="@+id/btnSetup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Onboarding" />
-
-    <TextView
         android:id="@+id/btnTestAuth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/btnSetup"
         android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_marginBottom="@dimen/space_small"
         android:text="Action requires authen" />
 </RelativeLayout>

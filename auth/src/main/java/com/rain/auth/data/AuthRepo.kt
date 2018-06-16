@@ -6,15 +6,15 @@ import io.reactivex.Single
 
 class AuthRepo(private val authStore: AuthStore) {
 
-    fun save(password: String) {
+    internal fun save(password: String) {
         authStore.storeHashPassword(hash256(password))
     }
 
-    fun hasSetup(): Boolean {
+    internal fun hasSetup(): Boolean {
         return authStore.getHashPassword() != NO_PASSWORD
     }
 
-    fun validate(password: String): Single<Boolean> {
+    internal fun validate(password: String): Single<Boolean> {
         return Single.fromCallable {
             return@fromCallable authStore.getHashPassword() == hash256(password)
         }

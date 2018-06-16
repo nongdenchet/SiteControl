@@ -10,6 +10,6 @@ import dagger.android.ContributesAndroidInjector
 abstract class AuthBindingModule {
 
     @SetupScope
-    @ContributesAndroidInjector(modules = [(SetupModule::class)])
+    @ContributesAndroidInjector(modules = [SetupModule::class])
     abstract fun contributeSetupActivity(): SetupActivity
 }

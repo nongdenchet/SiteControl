@@ -11,12 +11,12 @@ class PermissionManager(private val context: Context) {
     fun checkPermissions(): List<PermissionAction> {
         val permissions = mutableListOf<PermissionAction>()
 
-        if (!hasAccessibilityPermission(context)) {
-            permissions.add(PermissionAction.Accessibility(context))
-        }
-
         if (!hasOverlayPermission(context)) {
             permissions.add(PermissionAction.Overlay(context))
+        }
+
+        if (!hasAccessibilityPermission(context)) {
+            permissions.add(PermissionAction.Accessibility(context))
         }
 
         return permissions.toList()
