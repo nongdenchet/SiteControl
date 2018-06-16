@@ -1,4 +1,4 @@
-package com.rain.sitecontrol.ui
+package com.rain.sitecontrol.ui.main
 
 import dagger.Module
 

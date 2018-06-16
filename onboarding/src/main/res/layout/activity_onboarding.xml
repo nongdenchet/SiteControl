@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/space_normal">
+
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="156dp"
+        android:layout_height="156dp"
+        android:layout_gravity="center_horizontal"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/ic_accessibility" />
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_large"
+        android:gravity="center"
+        android:text="@string/welcome"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/size_large" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/space_small"
+        android:layout_marginStart="@dimen/space_small"
+        android:layout_marginTop="@dimen/space_medium"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/size_medium"
+        tools:text="@string/accessibility_description" />
+
+    <Button
+        android:id="@+id/btnGrandPermission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_medium"
+        android:backgroundTint="@color/colorWhite"
+        android:padding="@dimen/button_padding"
+        android:text="@string/grand_permission"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/size_normal"
+        tools:targetApi="lollipop" />
+</LinearLayout>

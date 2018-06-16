@@ -1,4 +1,4 @@
-package com.rain.sitecontrol.ui
+package com.rain.sitecontrol.ui.main
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -13,7 +13,8 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.btnSetup
+import kotlinx.android.synthetic.main.activity_main.btnTestAuth
 import timber.log.Timber
 import javax.inject.Inject
 

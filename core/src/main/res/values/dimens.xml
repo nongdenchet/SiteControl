@@ -6,6 +6,7 @@
     <dimen name="space_xlarge">32dp</dimen>
     <dimen name="space_large">24dp</dimen>
     <dimen name="space_medium">12dp</dimen>
+    <dimen name="button_padding">20dp</dimen>
 
     <!-- Sizing -->
     <dimen name="size_normal">16sp</dimen>

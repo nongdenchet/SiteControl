@@ -1,2 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rain.auth" />
+    package="com.rain.auth">
+
+    <application>
+        <activity
+            android:name="com.rain.auth.ui.setup.SetupActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+    </application>
+</manifest>

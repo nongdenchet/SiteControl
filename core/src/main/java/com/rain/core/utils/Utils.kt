@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.preference.PreferenceActivity
 import android.provider.Settings
 import android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION
 import android.support.annotation.DrawableRes
@@ -36,13 +37,24 @@ fun hasOverlayPermission(context: Context): Boolean {
     return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(context.applicationContext)
 }
 
+fun hasAccessibilityPermission(context: Context): Boolean {
+    return Settings.Secure.getInt(context.applicationContext.contentResolver, Settings.Secure.ACCESSIBILITY_ENABLED) == 1
+}
+
 fun toOverlayPermission(context: Context) {
     if (!hasOverlayPermission(context)) {
         val intent = Intent()
         intent.action = ACTION_MANAGE_OVERLAY_PERMISSION
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
         intent.data = Uri.parse("package:${context.packageName}")
         context.startActivity(intent)
     }
+}
+
+fun toAccessibilityPermission(context: Context) {
+    val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
+    context.startActivity(intent)
 }
 
 fun exponentialBackoff(times: Int, delay: Long): Function<in Flowable<Throwable>, out Publisher<*>> {

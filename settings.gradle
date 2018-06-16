@@ -1,1 +1,1 @@
-include ':app', ':auth', ':core'
+include ':app', ':auth', ':core', ':onboarding'
