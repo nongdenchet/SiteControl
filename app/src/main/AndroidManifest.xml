@@ -34,7 +34,7 @@
         </activity>
 
         <service
-            android:name=".SiteControlService"
+            android:name=".service.SiteControlService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
 
             <intent-filter>

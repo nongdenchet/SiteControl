@@ -1,5 +1,8 @@
 package com.rain.sitecontrol.di
 
+import com.rain.sitecontrol.service.SiteControlModule
+import com.rain.sitecontrol.service.SiteControlScope
+import com.rain.sitecontrol.service.SiteControlService
 import com.rain.sitecontrol.ui.main.MainActivity
 import com.rain.sitecontrol.ui.main.MainModule
 import com.rain.sitecontrol.ui.main.MainScope
@@ -19,4 +22,8 @@ abstract class BindingModule {
     @SplashScope
     @ContributesAndroidInjector(modules = [SplashModule::class])
     abstract fun contributeSplashActivity(): SplashActivity
+
+    @SiteControlScope
+    @ContributesAndroidInjector(modules = [SiteControlModule::class])
+    abstract fun contributeSiteControlService(): SiteControlService
 }
