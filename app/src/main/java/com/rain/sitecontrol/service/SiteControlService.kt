@@ -7,6 +7,7 @@ import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import com.jakewharton.rxrelay2.PublishRelay
 import com.rain.sitecontrol.R
+import com.rain.sitecontrol.utils.Constant.DANGEROUS_DOMAINS
 import dagger.android.AndroidInjection
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,13 +15,11 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 private const val settingPackage = "com.android.settings"
 private const val urlBarId = "com.android.chrome:id/url_bar"
 private const val forceStopId = "com.android.settings:id/right_button"
-private const val debounceTime = 300L
 
 class SiteControlService : AccessibilityService() {
     private val predictTrigger: PublishRelay<AccessibilityNodeInfo> = PublishRelay.create()
@@ -28,6 +27,8 @@ class SiteControlService : AccessibilityService() {
 
     @Inject
     lateinit var siteControlApi: SiteControlApi
+    @Inject
+    lateinit var siteControlRepo: SiteControlRepo
 
     override fun onCreate() {
         AndroidInjection.inject(this)
@@ -37,10 +38,10 @@ class SiteControlService : AccessibilityService() {
 
     private fun listenToPredictTrigger() {
         disposables.add(predictTrigger
-                .throttleLast(debounceTime, TimeUnit.MILLISECONDS)
                 .switchMapSingle { predict(it) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
+                    siteControlRepo.cacheResult(it.first.text.toString(), it.second)
                     if (it.second) {
                         preventUser(it.first)
                     }
@@ -49,6 +50,17 @@ class SiteControlService : AccessibilityService() {
     }
 
     private fun predict(urlBar: AccessibilityNodeInfo): Single<Pair<AccessibilityNodeInfo, Boolean>> {
+        val cache = siteControlRepo.getResult(urlBar.text.toString())
+        if (cache != null) {
+            return Single.just(Pair(urlBar, cache))
+        }
+
+        for (domain in DANGEROUS_DOMAINS) {
+            if (urlBar.text.toString().endsWith(domain)) {
+                return Single.just(Pair(urlBar, true))
+            }
+        }
+
         return Single.zip(Single.just(urlBar), doPredict(urlBar.text.toString()),
                 BiFunction { node, result -> Pair(node, result) })
     }
