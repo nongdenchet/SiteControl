@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SiteControl</string>
+    <string name="security">Security</string>
+    <string name="accessibility_service_description">We need this permission to inspect the site you are currently browsing and prevent adult sites. We guarantee not to do any data collections about your privacy.</string>
 </resources>
