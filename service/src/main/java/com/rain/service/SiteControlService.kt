@@ -53,7 +53,7 @@ class SiteControlService : AccessibilityService() {
     }
 
     private fun predict(urlBar: AccessibilityNodeInfo): Single<Pair<String, Boolean>> {
-        val text = urlBar.text.toString()
+        val text = urlBar.text.toString().replace("\u200E", "").trim()
         if (!Patterns.WEB_URL.matcher(text).matches()) {
             Timber.d("Not a valid url: ${urlBar.text}")
             return Single.just(text to false)

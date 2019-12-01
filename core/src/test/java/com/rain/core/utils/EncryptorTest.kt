@@ -3,9 +3,6 @@ package com.rain.core.utils
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-/*
- * Created by quan.vu on 10/6/18.
- */
 class EncryptorTest {
 
     @Test
