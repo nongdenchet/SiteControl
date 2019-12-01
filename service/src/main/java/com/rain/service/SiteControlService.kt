@@ -8,6 +8,7 @@ import android.util.Patterns
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import com.jakewharton.rxrelay2.PublishRelay
+import com.rain.core.utils.getBrowserPackages
 import com.rain.core.utils.getOverlayType
 import dagger.android.AndroidInjection
 import io.reactivex.Single
@@ -89,9 +90,19 @@ class SiteControlService : AccessibilityService() {
             return
         }
 
-        val source = event.source ?: return
-        val title = source.findAccessibilityNodeInfosByText(getString(R.string.title))
+        val browserPackages = getBrowserPackages(this).toSet()
+        if (!browserPackages.contains(event.packageName)) {
+            Timber.d("package is not browser: ${event.packageName}")
+            return
+        }
 
+        val source = event.source
+        if (source == null) {
+            Timber.d("source is null")
+            return
+        }
+
+        val title = source.findAccessibilityNodeInfosByText(getString(R.string.title))
         val forceStopButton = source.findAccessibilityNodeInfosByViewId(forceStopId)
         if (forceStopButton.isNotEmpty() && title.isNotEmpty() && source.packageName == settingPackage) {
             performGlobalAction(GLOBAL_ACTION_BACK)

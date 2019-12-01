@@ -1,7 +1,9 @@
 package com.rain.sitecontrol.ui.main
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.rain.auth.data.AuthManager
 import com.rain.core.utils.getCheckChanges
 import com.rain.core.utils.subscribeMain
@@ -31,21 +33,32 @@ class MainActivity : AppCompatActivity() {
     private fun initialize() {
         disposables.add(getCheckChanges(sEnabled)
             .filter { it != siteControlRepo.isEnabled() }
-            .doOnSubscribe { resetValue() }
             .flatMapMaybe { value ->
                 authManager.requireAuthComplete(value)
                     .doOnComplete { resetValue() }
                     .map { value }
             }
+            .doOnSubscribe { resetValue() }
             .subscribeMain({
                 siteControlRepo.setEnabled(it)
+                ivStatus.setImageDrawable(getStatusIcon(it))
                 sEnabled.isChecked = it
             }, Timber::e)
         )
     }
 
     private fun resetValue() {
-        sEnabled.isChecked = siteControlRepo.isEnabled()
+        siteControlRepo.isEnabled()
+            .run {
+                ivStatus.setImageDrawable(getStatusIcon(this))
+                sEnabled.isChecked = this
+            }
+    }
+
+    private fun getStatusIcon(status: Boolean): Drawable? {
+        val icon = if (status) R.drawable.ic_protected else R.drawable.ic_not_protected
+
+        return ContextCompat.getDrawable(this, icon)
     }
 
     override fun onDestroy() {

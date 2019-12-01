@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".ui.main.MainActivity">
+
+    <ImageView
+        android:id="@+id/ivStatus"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_protected"
+        tools:ignore="ContentDescription" />
 
     <Switch
         android:id="@+id/sEnabled"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="@dimen/space_medium"
+        android:checked="true"
+        android:includeFontPadding="false"
         android:switchPadding="@dimen/space_small"
-        android:text="@string/protect_from_adult_sites" />
-</FrameLayout>
+        android:text="@string/protect_from_adult_sites"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/size_medium"
+        android:theme="@style/Switch" />
+</LinearLayout>

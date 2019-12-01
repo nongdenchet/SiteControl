@@ -2,6 +2,7 @@ package com.rain.core.utils
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
@@ -80,4 +81,18 @@ fun getCheckChanges(view: Switch): Observable<Boolean> {
     return RxCompoundButton.checkedChanges(view)
         .throttleFirst(300, TimeUnit.MILLISECONDS)
         .subscribeOn(AndroidSchedulers.mainThread())
+}
+
+fun getBrowserPackages(context: Context): List<String> {
+    val packageManager = context.packageManager
+    val intent = Intent(Intent.ACTION_VIEW).apply {
+        data = Uri.parse("http://www.google.com")
+    }
+    val match = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        PackageManager.MATCH_ALL
+    else 0
+
+    return packageManager.queryIntentActivities(intent, match)
+        .filter { it.activityInfo != null }
+        .map { it.activityInfo.packageName }
 }
