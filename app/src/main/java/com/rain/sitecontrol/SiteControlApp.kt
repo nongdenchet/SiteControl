@@ -8,7 +8,10 @@ import com.rain.sitecontrol.di.application.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import timber.log.Timber
+import timber.log.Timber.DebugTree
 import javax.inject.Inject
+
 
 open class SiteControlApp : Application(), HasAndroidInjector, AuthDialogComponentProvider {
     private lateinit var component: AppComponent
@@ -22,6 +25,7 @@ open class SiteControlApp : Application(), HasAndroidInjector, AuthDialogCompone
 
     override fun onCreate() {
         super.onCreate()
+        Timber.plant(DebugTree())
         initComponent()
     }
 
