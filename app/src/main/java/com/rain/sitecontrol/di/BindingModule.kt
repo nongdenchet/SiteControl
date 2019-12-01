@@ -1,8 +1,8 @@
 package com.rain.sitecontrol.di
 
-import com.rain.sitecontrol.service.SiteControlModule
-import com.rain.sitecontrol.service.SiteControlScope
-import com.rain.sitecontrol.service.SiteControlService
+import com.rain.service.SiteControlModule
+import com.rain.service.SiteControlScope
+import com.rain.service.SiteControlService
 import com.rain.sitecontrol.ui.main.MainActivity
 import com.rain.sitecontrol.ui.main.MainModule
 import com.rain.sitecontrol.ui.main.MainScope

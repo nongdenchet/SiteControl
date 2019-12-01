@@ -11,12 +11,12 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "ACCESS_TOKEN", AccessToken
     }
 
     buildTypes {
         debug {
             testCoverageEnabled true
-            buildConfigField "String", "ACCESS_TOKEN", AccessToken
         }
 
         release {
@@ -37,6 +37,7 @@ android {
 
 dependencies {
     implementation project(path: ':core')
+    implementation project(path: ':service')
     implementation project(path: ':auth')
     implementation project(path: ':onboarding')
 
@@ -46,7 +47,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.jakewharton.timber:timber:4.7.0'
+    implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
 
     // Dagger
@@ -63,9 +64,9 @@ dependencies {
     implementation 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
 
     // Networking
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.okhttp3:okhttp:3.12.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.2'
 }

@@ -1,4 +1,4 @@
-package com.rain.sitecontrol.service
+package com.rain.service
 
 import javax.inject.Scope
 

@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
 
-    <TextView
-        android:id="@+id/btnTestAuth"
+    <Switch
+        android:id="@+id/sEnabled"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="@dimen/space_small"
-        android:text="Action requires authen" />
-</RelativeLayout>
+        android:layout_gravity="center"
+        android:switchPadding="@dimen/space_small"
+        android:text="@string/protect_from_adult_sites" />
+</FrameLayout>

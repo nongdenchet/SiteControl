@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">auth</string>
     <string name="setup_pin">Let\'s setup your pin first</string>
     <string name="confirm_pin">Confirm your pin</string>
     <string name="confirm_not_match">confirmation not match</string>

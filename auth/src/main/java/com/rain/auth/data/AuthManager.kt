@@ -14,19 +14,17 @@ class AuthManager(private val authRepo: AuthRepo, private val context: Context) 
 
     fun <T> requireAuthComplete(value: T): Maybe<T> {
         return requireAuth(value)
-                .onErrorComplete {
-                    if (it is AuthManager.NotSetupPassword) {
-                        Toast.makeText(context, "Please setup pin", Toast.LENGTH_SHORT).show()
-                    }
-                    return@onErrorComplete true
+            .onErrorComplete {
+                if (it is NotSetupPassword) {
+                    Toast.makeText(context, "Please setup pin", Toast.LENGTH_SHORT).show()
                 }
+                return@onErrorComplete true
+            }
     }
 
     private fun <T> requireAuth(value: T): Maybe<T> {
         return Maybe.create<T> {
-            if (Looper.myLooper() != Looper.getMainLooper()) {
-                throw IllegalStateException("Should observe on main")
-            }
+            check(Looper.myLooper() == Looper.getMainLooper()) { "Should observe on main" }
 
             if (!authRepo.hasSetup()) {
                 it.onError(NotSetupPassword())

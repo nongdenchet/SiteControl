@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Onboarding</string>
     <string name="welcome">Welcome to SiteControl</string>
     <string name="accessibility_description">We need Accessibility enabled to control your sensitive browsing sites.</string>
     <string name="overlay_description">We need to draw over your device to display alert information</string>

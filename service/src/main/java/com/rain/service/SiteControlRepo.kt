@@ -1,9 +1,12 @@
-package com.rain.sitecontrol.service
+package com.rain.service
 
+import android.content.SharedPreferences
 import androidx.annotation.MainThread
 import androidx.collection.ArrayMap
 
-class SiteControlRepo {
+private const val ENABLED = "ENABLED"
+
+class SiteControlRepo(private val sharedPreferences: SharedPreferences) {
     private val cache = ArrayMap<String, Boolean>(100)
 
     @MainThread
@@ -20,4 +23,12 @@ class SiteControlRepo {
 
         return null
     }
+
+    fun setEnabled(value: Boolean) {
+        sharedPreferences.edit()
+            .putBoolean(ENABLED, value)
+            .apply()
+    }
+
+    fun isEnabled(): Boolean = sharedPreferences.getBoolean(ENABLED, true)
 }

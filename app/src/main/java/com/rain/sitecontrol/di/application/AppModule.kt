@@ -9,13 +9,12 @@ import android.view.inputmethod.InputMethodManager
 import com.google.gson.Gson
 import com.rain.auth.data.AuthModule
 import com.rain.core.support.ResourceProvider
-import com.rain.sitecontrol.di.ApiModule
 import com.rain.sitecontrol.di.NetworkModule
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(includes = [AuthModule::class, NetworkModule::class, ApiModule::class])
+@Module(includes = [AuthModule::class, NetworkModule::class])
 class AppModule {
 
     @Provides

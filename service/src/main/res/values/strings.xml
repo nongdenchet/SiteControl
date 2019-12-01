@@ -1,0 +1,7 @@
+<resources>
+    <string name="title">SiteControl</string>
+    <string name="go_back">Go back</string>
+    <string name="accessibility_service_description">We need this permission to inspect the site you are currently browsing and prevent adult sites. We guarantee not to do any data collections about your privacy.</string>
+    <string name="adult_message">This site contains adult content, please go back</string>
+    <string name="protect_from_adult_sites">Protect from Adult sites</string>
+</resources>
