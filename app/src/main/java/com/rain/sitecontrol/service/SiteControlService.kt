@@ -35,10 +35,8 @@ class SiteControlService : AccessibilityService() {
     }
 
     private fun listenToPredictTrigger() {
-        disposables.add(predictTrigger
-            .switchMapSingle { predict(it) }
+        disposables.add(predictTrigger.switchMapSingle { predict(it) }
             .observeOn(AndroidSchedulers.mainThread())
-            .distinctUntilChanged()
             .subscribe({
                 siteControlRepo.cacheResult(it.first, it.second)
                 if (it.second) {
