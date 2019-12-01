@@ -48,11 +48,11 @@ class AuthDialog(private val context: Context) {
         if (alertDialog == null) {
             val view = createView()
             val dialog = AlertDialog.Builder(context)
-                    .setView(view)
-                    .create()
+                .setView(view)
+                .create()
             bindViews(view)
             dialog.setOnDismissListener { dismiss() }
-            dialog.window.setType(getOverlayType())
+            dialog.window?.setType(getOverlayType())
             this.alertDialog = dialog
         }
         bindViewModel()
@@ -67,8 +67,8 @@ class AuthDialog(private val context: Context) {
     private fun bindViewModel() {
         val output = viewModel.bind(AuthViewModel.Input(getStreamText(pinView)))
         disposables.addAll(
-                output.error.subscribeMain({ bindError(it) }, Timber::e),
-                output.success.subscribeMain({ bindSuccess(it) }, Timber::e)
+            output.error.subscribeMain({ bindError(it) }, Timber::e),
+            output.success.subscribeMain({ bindSuccess(it) }, Timber::e)
         )
     }
 

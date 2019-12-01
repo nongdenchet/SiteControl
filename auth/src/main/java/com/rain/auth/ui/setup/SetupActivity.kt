@@ -2,9 +2,9 @@ package com.rain.auth.ui.setup
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.rain.auth.R
 import com.rain.auth.ui.setup.reducer.SetupState
 import com.rain.core.utils.EMPTY_STRING

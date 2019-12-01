@@ -2,7 +2,7 @@ package com.rain.onboarding.ui
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.rain.onboarding.R
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_onboarding.btnGrandPermission

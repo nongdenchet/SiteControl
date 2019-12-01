@@ -1,7 +1,7 @@
 package com.rain.sitecontrol.service
 
-import android.support.annotation.MainThread
-import android.support.v4.util.ArrayMap
+import androidx.annotation.MainThread
+import androidx.collection.ArrayMap
 
 class SiteControlRepo {
     private val cache = ArrayMap<String, Boolean>(100)

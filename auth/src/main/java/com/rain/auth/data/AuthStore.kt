@@ -1,6 +1,7 @@
 package com.rain.auth.data
 
 import android.content.SharedPreferences
+import com.rain.core.utils.EMPTY_STRING
 
 class AuthStore(private val sharedPreferences: SharedPreferences) {
     companion object {
@@ -9,12 +10,12 @@ class AuthStore(private val sharedPreferences: SharedPreferences) {
     }
 
     fun getHashPassword(): String {
-        return sharedPreferences.getString(HASH_PASSWORD, NO_PASSWORD)
+        return sharedPreferences.getString(HASH_PASSWORD, NO_PASSWORD) ?: EMPTY_STRING
     }
 
     fun storeHashPassword(hash: String) {
         sharedPreferences.edit()
-                .putString(HASH_PASSWORD, hash)
-                .apply()
+            .putString(HASH_PASSWORD, hash)
+            .apply()
     }
 }

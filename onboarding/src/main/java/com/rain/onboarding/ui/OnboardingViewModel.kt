@@ -1,7 +1,7 @@
 package com.rain.onboarding.ui
 
-import android.support.annotation.DrawableRes
-import android.support.annotation.StringRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.rain.onboarding.permission.PermissionAction
 
 data class OnboardingViewModel(

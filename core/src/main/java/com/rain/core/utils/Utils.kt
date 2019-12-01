@@ -6,12 +6,12 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION
-import android.support.annotation.DrawableRes
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -37,7 +37,10 @@ fun hasOverlayPermission(context: Context): Boolean {
 }
 
 fun hasAccessibilityPermission(context: Context): Boolean {
-    return Settings.Secure.getInt(context.applicationContext.contentResolver, Settings.Secure.ACCESSIBILITY_ENABLED) == 1
+    return Settings.Secure.getInt(
+        context.applicationContext.contentResolver,
+        Settings.Secure.ACCESSIBILITY_ENABLED
+    ) == 1
 }
 
 fun toOverlayPermission(context: Context) {
@@ -56,10 +59,13 @@ fun toAccessibilityPermission(context: Context) {
     context.startActivity(intent)
 }
 
-fun exponentialBackoff(times: Int, delay: Long): Function<in Flowable<Throwable>, out Publisher<*>> {
+fun exponentialBackoff(
+    times: Int,
+    delay: Long
+): Function<in Flowable<Throwable>, out Publisher<*>> {
     return Function { error ->
         error.zipWith(Flowable.range(1, times), BiFunction<Throwable, Int, Int> { _, i -> i })
-                .flatMap { Flowable.timer(delay * it, TimeUnit.SECONDS) }
+            .flatMap { Flowable.timer(delay * it, TimeUnit.SECONDS) }
     }
 }
 
@@ -78,8 +84,8 @@ fun setMoney(editText: EditText, value: String) {
 
 fun loadIcon(imageView: ImageView, @DrawableRes icon: Int) {
     Glide.with(imageView.context)
-            .load(icon)
-            .into(imageView)
+        .load(icon)
+        .into(imageView)
 }
 
 fun getOverlayType(): Int {
@@ -97,12 +103,12 @@ fun getScreenSize(windowManager: WindowManager): DisplayMetrics {
 
 fun getStreamText(editText: EditText): Observable<String> {
     return RxTextView.textChangeEvents(editText)
-            .filter { editText.isFocused }
-            .distinctUntilChanged()
-            .sample(300, TimeUnit.MILLISECONDS)
-            .map { it.text() }
-            .map { it.toString() }
-            .subscribeOn(AndroidSchedulers.mainThread())
+        .filter { editText.isFocused }
+        .distinctUntilChanged()
+        .sample(300, TimeUnit.MILLISECONDS)
+        .map { it.text() }
+        .map { it.toString() }
+        .subscribeOn(AndroidSchedulers.mainThread())
 }
 
 fun getLocale(context: Context): Locale {
@@ -115,6 +121,6 @@ fun getLocale(context: Context): Locale {
 
 fun getClicks(view: View): Observable<Any> {
     return RxView.clicks(view)
-            .throttleFirst(300, TimeUnit.MILLISECONDS)
-            .subscribeOn(AndroidSchedulers.mainThread())
+        .throttleFirst(300, TimeUnit.MILLISECONDS)
+        .subscribeOn(AndroidSchedulers.mainThread())
 }

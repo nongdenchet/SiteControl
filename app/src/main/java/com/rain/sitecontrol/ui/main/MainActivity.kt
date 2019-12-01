@@ -1,8 +1,8 @@
 package com.rain.sitecontrol.ui.main
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.rain.auth.data.AuthManager
 import com.rain.core.utils.getClicks
 import com.rain.core.utils.subscribeMain
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     private val disposables = CompositeDisposable()
 
     @Inject
-    lateinit var authManager: AuthManager
+    internal lateinit var authManager: AuthManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)

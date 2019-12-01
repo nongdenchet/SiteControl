@@ -13,7 +13,9 @@ fun hash256(data: String): String {
 
 private fun bytesToHex(bytes: ByteArray): String {
     val result = StringBuffer()
-    for (b in bytes) result.append(Integer.toString((b and 0xff.toByte()) + 0x100, 16)
-            .substring(1))
+    for (b in bytes) result.append(
+        ((b and 0xff.toByte()) + 0x100).toString(16)
+            .substring(1)
+    )
     return result.toString()
 }

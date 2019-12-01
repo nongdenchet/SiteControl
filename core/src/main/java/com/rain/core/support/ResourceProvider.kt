@@ -1,7 +1,7 @@
 package com.rain.core.support
 
 import android.content.res.Resources
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 
 class ResourceProvider(private val resources: Resources) {
 

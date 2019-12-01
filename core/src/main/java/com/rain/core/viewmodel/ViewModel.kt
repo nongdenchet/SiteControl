@@ -12,15 +12,18 @@ interface ViewState
 interface Command
 interface Reducer<T : ViewState, E : Command> : BiFunction<T, E, T>
 
-abstract class ViewModel<T : ViewState, E : Command>(private val reducer: Reducer<T, E>, private val initState: T) {
+abstract class ViewModel<T : ViewState, E : Command>(
+    private val reducer: Reducer<T, E>,
+    private val initState: T
+) {
     private val state = BehaviorRelay.createDefault<T>(initState)
     private var disposable: Disposable? = null
 
     fun subscribe(commands: Observable<E>) {
         disposable = commands.scan(initState, reducer)
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ state.accept(it) }, Timber::e)
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ state.accept(it) }, Timber::e)
     }
 
     protected fun getState(): Observable<T> {

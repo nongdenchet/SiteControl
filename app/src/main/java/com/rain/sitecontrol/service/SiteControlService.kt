@@ -2,7 +2,7 @@ package com.rain.sitecontrol.service
 
 import android.accessibilityservice.AccessibilityService
 import android.os.Bundle
-import android.support.annotation.MainThread
+import androidx.annotation.MainThread
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import com.jakewharton.rxrelay2.PublishRelay

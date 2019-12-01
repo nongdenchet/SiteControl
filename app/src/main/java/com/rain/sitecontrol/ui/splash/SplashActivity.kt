@@ -2,7 +2,7 @@ package com.rain.sitecontrol.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.rain.auth.ui.setup.SetupActivity
 import com.rain.onboarding.ui.OnboardingActivity
 import com.rain.sitecontrol.ui.main.MainActivity
@@ -12,7 +12,7 @@ import javax.inject.Inject
 class SplashActivity : AppCompatActivity(), SplashView {
 
     @Inject
-    lateinit var splashPresenter: SplashPresenter
+    internal lateinit var splashPresenter: SplashPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -29,7 +29,10 @@ class SplashActivity : AppCompatActivity(), SplashView {
     }
 
     override fun toOnboarding() {
-        startActivityForResult(Intent(this, OnboardingActivity::class.java), OnboardingActivity.REQUEST)
+        startActivityForResult(
+            Intent(this, OnboardingActivity::class.java),
+            OnboardingActivity.REQUEST
+        )
     }
 
     override fun toSetting() {
@@ -39,6 +42,7 @@ class SplashActivity : AppCompatActivity(), SplashView {
     override fun close() = finish()
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         splashPresenter.handleResult(requestCode, resultCode)
     }
 }
