@@ -11,11 +11,12 @@ import com.jakewharton.rxrelay2.PublishRelay
 import com.rain.core.utils.getBrowserPackages
 import com.rain.core.utils.getOverlayType
 import dagger.android.AndroidInjection
-import io.reactivex.Single
+import io.reactivex.Maybe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 private const val delayInMiliSeconds = 1000L
@@ -41,7 +42,7 @@ class SiteControlService : AccessibilityService() {
     }
 
     private fun listenToPredictTrigger() {
-        disposables.add(predictTrigger.switchMapSingle { predict(it) }
+        disposables.add(predictTrigger.switchMapMaybe { predict(it) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 siteControlRepo.cacheResult(it.first, it.second)
@@ -53,32 +54,35 @@ class SiteControlService : AccessibilityService() {
         )
     }
 
-    private fun predict(urlBar: AccessibilityNodeInfo): Single<Pair<String, Boolean>> {
+    private fun predict(urlBar: AccessibilityNodeInfo): Maybe<Pair<String, Boolean>> {
         val text = urlBar.text.toString().replace("\u200E", "").trim()
         if (!Patterns.WEB_URL.matcher(text).matches()) {
             Timber.d("Not a valid url: ${urlBar.text}")
-            return Single.just(text to false)
+            return Maybe.just(text to false)
         }
 
         val cache = siteControlRepo.getResult(urlBar.text.toString())
         if (cache != null) {
-            return Single.just(Pair(text, cache))
+            Timber.d("Using cache: $cache")
+            return Maybe.just(Pair(text, cache))
         }
 
         for (domain in DANGEROUS_DOMAINS) {
             if (urlBar.text.toString().endsWith(domain)) {
-                return Single.just(Pair(text, true))
+                return Maybe.just(Pair(text, true))
             }
         }
 
         return doPredict(text).map { text to it }
     }
 
-    private fun doPredict(url: String): Single<Boolean> {
+    private fun doPredict(url: String): Maybe<Boolean> {
         return siteControlApi.predict(PredictRequest(url))
+            .retryWhen { it.take(3).delay(300, TimeUnit.MILLISECONDS) }
             .map { it.result }
+            .toMaybe()
             .doOnError { Timber.e(it) }
-            .onErrorReturnItem(false)
+            .onErrorComplete()
             .subscribeOn(Schedulers.io())
     }
 

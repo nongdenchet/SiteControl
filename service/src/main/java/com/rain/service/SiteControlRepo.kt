@@ -2,20 +2,20 @@ package com.rain.service
 
 import android.content.SharedPreferences
 import androidx.annotation.MainThread
-import androidx.collection.ArrayMap
+import androidx.collection.LruCache
 
 private const val ENABLED = "ENABLED"
 
 class SiteControlRepo(private val sharedPreferences: SharedPreferences) {
-    private val cache = ArrayMap<String, Boolean>(100)
+    private val cache = LruCache<String, Boolean>(128)
 
     @MainThread
     fun cacheResult(url: String, result: Boolean) {
-        cache[url] = result
+        cache.put(url, result)
     }
 
     fun getResult(newUrl: String): Boolean? {
-        for (url in cache.keys) {
+        for (url in cache.snapshot().keys) {
             if (newUrl.contains(url)) {
                 return cache[url]
             }
